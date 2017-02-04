@@ -1734,6 +1734,21 @@
       <name>Boundless Maven Repository</name>
       <url>http://repo.boundlessgeo.com/main</url>
     </repository>
+          
+           <repository>
+        <id>maven2-repository.dev.java.net</id>
+        <name>Java.net repository</name>
+        <url>http://download.java.net/maven/2</url>
+    </repository>
+  
+    <repository> <!--Add the snapshot repository here-->
+        <snapshots>
+            <enabled>true</enabled>
+        </snapshots>
+        <id>opengeo</id>
+        <name>OpenGeo Maven Repository</name>
+        <url>http://repo.opengeo.org</url>
+    </repository>
 
   </repositories>
 
