@@ -1864,6 +1864,20 @@
         <name>OpenGeo Maven Repository</name>
         <url>http://repo.opengeo.org</url>
     </repository>
+	  <repository>
+   <id>boundless-release</id>
+    <name>Boundless Maven Release Repository</name>
+    <url>https://repo.boundlessgeo.com/release/</url>
+   <snapshots>
+      <enabled>true</enabled>
+    </snapshots>
+  </repository>
+
+  <repository>
+        <id>boundless-libs-release-local</id>
+        <name>Boundless Libs-Release-Local Maven Repository</name>
+        <url>https://repo.boundlessgeo.com/artifactory/libs-release-local/</url>
+	   </repository>
   </repositories>
 
   <!-- =========================================================== -->
