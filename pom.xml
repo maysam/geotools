@@ -164,18 +164,14 @@
     <profile>
       <id>deploy.boundless</id>
       <distributionManagement>
-        <repository>
-          <id>boundless</id>
-          <uniqueVersion>false</uniqueVersion>
-          <name>Boundless Maven Repository</name>
-          <url>http://repo.boundlessgeo.com/main</url>
-        </repository>
-        <snapshotRepository>
-          <id>boundless</id>
-          <uniqueVersion>false</uniqueVersion>
-          <name>Boundless Maven Repository</name>
-          <url>http://repo.boundlessgeo.com/main</url>
-        </snapshotRepository>
+       <repository> <!--Add the snapshot repository here-->
+        <snapshots>
+            <enabled>true</enabled>
+        </snapshots>
+        <id>opengeo</id>
+        <name>OpenGeo Maven Repository</name>
+        <url>http://repo.opengeo.org</url>
+    </repository>
       </distributionManagement>
     </profile>
     <profile>
@@ -1871,7 +1867,7 @@
   </repositories>
 
   <!-- =========================================================== -->
-  <!--     Plugin repositories.                                    -->
+  <!--     Plugin .                                    -->
   <!--     This is where Maven looks for plugin dependencies.      -->
   <!-- =========================================================== -->
   <pluginRepositories>
