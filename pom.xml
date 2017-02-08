@@ -103,6 +103,7 @@
     <javac.maxHeapSize>256M</javac.maxHeapSize>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <postgresql.jdbc.version>8.4-701.jdbc3</postgresql.jdbc.version>
+	    <geotools.version>8-SNAPSHOT</geotools.version> <!--Reference http://docs.geotools.org/stable/userguide/faq.html-->
   </properties>
 
   <!-- Profiles set on the command-line overwrite default properties. -->
