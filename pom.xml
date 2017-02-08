@@ -24,7 +24,7 @@
   <!--                        modules or example code used by the  -->
   <!--                        build box.                           -->
   <!--                                                             -->
-  <!--    -Djdbc.oracle=true  Indicate that the real oracle driver -->
+  <!--    -Doracle=true       Indicate that the real oracle driver -->
   <!--                        has been installed into the local    -->
   <!--                        repository and should be used.       -->
   <!--                                                             -->
@@ -66,7 +66,7 @@
   <!--       mvn -P extensive.tests install                        -->
   <!--       mvn -P online,stress install                          -->
   <!--       mvn -P site.build site                                -->
-  <!--       mvn eclipse:eclipse -Djdbc.oracle=true -P pending     -->
+  <!--       mvn eclipse:eclipse -Doracle=true -P pending          -->
   <!--                                                             -->
   <!--     While you can specify properties one at a time on the   -->
   <!--     command line, for properties describing your            -->
@@ -92,7 +92,9 @@
     <javadoc.maxHeapSize>1536M</javadoc.maxHeapSize>
     <test.forkMode>once</test.forkMode>
     <src.output>${basedir}/target</src.output>
-    <imageio.ext.version>1.1.10</imageio.ext.version>
+    <imageio.ext.version>1.1.12</imageio.ext.version>
+    <jaiext.version>1.0.3</jaiext.version>
+    <netcdf.version>4.5.5</netcdf.version>
     <jt.version>1.3.1</jt.version>
     <jvm.opts></jvm.opts>
     <maven.build.timestamp.format>dd-MMM-yyyy HH:mm</maven.build.timestamp.format>
@@ -194,14 +196,13 @@
   <groupId>org.geotools</groupId>
   <artifactId>geotools</artifactId>
   <packaging>pom</packaging>
-  <version>12-SNAPSHOT</version>
+  <version>14-SNAPSHOT</version>
   <name>Geotools</name>
 
   <scm>
-    <connection>
-      scm:svn:http://svn.geotools.org/trunk/
-    </connection>
-    <url>http://svn.geotools.org/trunk/</url>
+    <connection>scm:git:git://github.com/geotools/geotools.git</connection>
+    <developerConnection>scm:git:[fetch=]git://github.com/geotools/geotools.git[push=]git@github.com:geotools/geotools.git</developerConnection>
+    <url>https://github.com/geotools/geotools</url>
   </scm>
 
   <description>
@@ -230,14 +231,15 @@
   <!-- =========================================================== -->
   <issueManagement>
     <system>JIRA</system>
-    <url>http://jira.codehaus.org/browse/GEOT</url>
+    <url>https://osgeo-org.atlassian.net/projects/GEOT</url>
   </issueManagement>
 
   <!-- =========================================================== -->
   <!--    Continuous Integration                                   -->
   <!-- =========================================================== -->
   <ciManagement>
-    <system>continuum</system>
+    <system>jenkins</system>
+    <url>http://ares.opengeo.org/jenkins/view/geotools/</url>
   </ciManagement>
 
   <mailingLists>
@@ -250,7 +252,7 @@
         geotools-geotools-gt2-users@lists.sourceforge.net
       </post>
       <archive>
-        http://sourceforge.net/mailarchive/forum.php?forum=geotools-gt2-users
+        http://sourceforge.net/p/geotools/mailman/geotools-gt2-users/
       </archive>
     </mailingList>
     <mailingList>
@@ -262,31 +264,19 @@
         geotools-devel@lists.sourceforge.net
       </post>
       <archive>
-        http://sourceforge.net/mailarchive/forum.php?forum=geotools-devel
-      </archive>
-    </mailingList>
-    <mailingList>
-      <name>geotools-gt2-i18n</name>
-      <subscribe>
-        http://lists.sourceforge.net/lists/listinfo/geotools-gt2-i18n
-      </subscribe>
-      <post>
-        geotools-geotools-gt2-i18n@lists.sourceforge.net
-      </post>
-      <archive>
-        http://sourceforge.net/mailarchive/forum.php?forum=geotools-gt2-i18n
+        http://sourceforge.net/p/geotools/mailman/geotools-devel/
       </archive>
     </mailingList>
     <mailingList>
       <name>geotools-gt2-commits</name>
       <subscribe>
-        http://lists.sourceforge.net/lists/listinfo/geotools-gt2-commits
+        https://lists.sourceforge.net/lists/listinfo/geotools-commits
       </subscribe>
       <post>
         geotools-geotools-gt2-commits@lists.sourceforge.net
       </post>
       <archive>
-        http://sourceforge.net/mailarchive/forum.php?forum=geotools-gt2-commits
+        http://sourceforge.net/p/geotools/mailman/geotools-commits/
       </archive>
     </mailingList>
   </mailingLists>
@@ -743,9 +733,9 @@
       
       <!-- Mathematic, geometries, SVG... -->
       <dependency>
-        <groupId>java3d</groupId>
-        <artifactId>vecmath</artifactId>
-        <version>1.3.2</version>
+        <groupId>com.googlecode.efficient-java-matrix-library</groupId>
+        <artifactId>core</artifactId>
+        <version>0.26</version>
       </dependency>
       <dependency>
         <groupId>com.vividsolutions</groupId>
@@ -855,9 +845,14 @@
         <version>2.0.8</version>
       </dependency>
       <dependency>
+        <groupId>org.apache.ant</groupId>
+        <artifactId>ant</artifactId>
+        <version>1.8.1</version>
+      </dependency>
+      <dependency>
         <groupId>commons-lang</groupId>
         <artifactId>commons-lang</artifactId>
-        <version>2.3</version>
+        <version>2.6</version>
       </dependency>
       <dependency>
         <groupId>commons-collections</groupId>
@@ -945,6 +940,12 @@
       <!-- ORACLE -->
       <!-- Download and install into your own repo -->
       <dependency>
+        <artifactId>ojdbc7</artifactId>
+        <groupId>com.oracle</groupId>
+        <version>12.1.0.2</version>
+      </dependency>
+      <!-- Older version required by imagemosaic -->
+      <dependency>
         <artifactId>ojdbc14</artifactId>
         <groupId>com.oracle</groupId>
         <version>10.2.0.3.0</version>
@@ -965,8 +966,18 @@
       <!-- Grid data formats -->
       <dependency>
         <groupId>edu.ucar</groupId>
-        <artifactId>netcdf</artifactId>
-        <version>2.2.20</version>
+        <artifactId>cdm</artifactId> 
+        <version>${netcdf.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>edu.ucar</groupId>
+        <artifactId>netcdf4</artifactId> 
+        <version>${netcdf.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>edu.ucar</groupId>
+        <artifactId>bufr</artifactId> 
+        <version>${netcdf.version}</version>
       </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>
@@ -1011,7 +1022,7 @@
           classes -->
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
-        <version>r09</version>
+        <version>17.0</version>
       </dependency>      
       
       <!-- Other random non test dependencies -->
@@ -1074,6 +1085,138 @@
         <artifactId>icu4j</artifactId>
         <version>3.4.4</version>
       </dependency>
+
+     <!-- JAIExt -->
+      <dependency>
+        <groupId>it.geosolutions.jaiext.affine</groupId>
+        <artifactId>jt-affine</artifactId>
+        <version>${jaiext.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>it.geosolutions.jaiext.algebra</groupId>
+        <artifactId>jt-algebra</artifactId>
+        <version>${jaiext.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>it.geosolutions.jaiext.bandmerge</groupId>
+        <artifactId>jt-bandmerge</artifactId>
+        <version>${jaiext.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>it.geosolutions.jaiext.bandselect</groupId>
+        <artifactId>jt-bandselect</artifactId>
+        <version>${jaiext.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>it.geosolutions.jaiext.bandcombine</groupId>
+        <artifactId>jt-bandcombine</artifactId>
+        <version>${jaiext.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>it.geosolutions.jaiext.border</groupId>
+        <artifactId>jt-border</artifactId>
+        <version>${jaiext.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>it.geosolutions.jaiext.buffer</groupId>
+        <artifactId>jt-buffer</artifactId>
+        <version>${jaiext.version}</version>
+      </dependency>	 
+      <dependency>
+        <groupId>it.geosolutions.jaiext.crop</groupId>
+        <artifactId>jt-crop</artifactId>
+        <version>${jaiext.version}</version>
+      </dependency>	
+      <dependency>
+        <groupId>it.geosolutions.jaiext.lookup</groupId>
+        <artifactId>jt-lookup</artifactId>
+        <version>${jaiext.version}</version>
+      </dependency>	
+      <dependency>
+        <groupId>it.geosolutions.jaiext.mosaic</groupId>
+        <artifactId>jt-mosaic</artifactId>
+        <version>${jaiext.version}</version>
+      </dependency>	
+      <dependency>
+        <groupId>it.geosolutions.jaiext.nullop</groupId>
+        <artifactId>jt-nullop</artifactId>
+        <version>${jaiext.version}</version>
+      </dependency>	
+      <dependency>
+        <groupId>it.geosolutions.jaiext.rescale</groupId>
+        <artifactId>jt-rescale</artifactId>
+        <version>${jaiext.version}</version>
+      </dependency>	
+      <dependency>
+        <groupId>it.geosolutions.jaiext.stats</groupId>
+        <artifactId>jt-stats</artifactId>
+        <version>${jaiext.version}</version>
+      </dependency>	
+      <dependency>
+        <groupId>it.geosolutions.jaiext.warp</groupId>
+        <artifactId>jt-warp</artifactId>
+        <version>${jaiext.version}</version>
+      </dependency>	
+      <dependency>
+        <groupId>it.geosolutions.jaiext.zonal</groupId>
+        <artifactId>jt-zonal</artifactId>
+        <version>${jaiext.version}</version>
+      </dependency>	
+      <dependency>
+        <groupId>it.geosolutions.jaiext.binarize</groupId>
+        <artifactId>jt-binarize</artifactId>
+        <version>${jaiext.version}</version>
+      </dependency>	
+      <dependency>
+        <groupId>it.geosolutions.jaiext.format</groupId>
+        <artifactId>jt-format</artifactId>
+        <version>${jaiext.version}</version>
+      </dependency>	
+      <dependency>
+        <groupId>it.geosolutions.jaiext.colorconvert</groupId>
+        <artifactId>jt-colorconvert</artifactId>
+        <version>${jaiext.version}</version>
+      </dependency>	
+      <dependency>
+        <groupId>it.geosolutions.jaiext.errordiffusion</groupId>
+        <artifactId>jt-errordiffusion</artifactId>
+        <version>${jaiext.version}</version>
+      </dependency>	
+	      <dependency>
+        <groupId>it.geosolutions.jaiext.orderdither</groupId>
+        <artifactId>jt-orderdither</artifactId>
+        <version>${jaiext.version}</version>
+      </dependency>	
+      <dependency>
+        <groupId>it.geosolutions.jaiext.colorindexer</groupId>
+        <artifactId>jt-colorindexer</artifactId>
+        <version>${jaiext.version}</version>
+      </dependency>	
+      <dependency>
+        <groupId>it.geosolutions.jaiext.imagefunction</groupId>
+        <artifactId>jt-imagefunction</artifactId>
+        <version>${jaiext.version}</version>
+      </dependency>	
+      <dependency>
+        <groupId>it.geosolutions.jaiext.piecewise</groupId>
+        <artifactId>jt-piecewise</artifactId>
+        <version>${jaiext.version}</version>
+      </dependency>	
+      <dependency>
+        <groupId>it.geosolutions.jaiext.classifier</groupId>
+        <artifactId>jt-classifier</artifactId>
+        <version>${jaiext.version}</version>
+      </dependency>	
+	  <dependency>
+		<groupId>it.geosolutions.jaiext.rlookup</groupId>
+		<artifactId>jt-rlookup</artifactId>
+		<version>${jaiext.version}</version>
+	  </dependency>		
+	  <dependency>
+		<groupId>it.geosolutions.jaiext.vectorbin</groupId>
+		<artifactId>jt-vectorbin</artifactId>
+		<version>${jaiext.version}</version>
+	  </dependency>		  
     </dependencies>
   </dependencyManagement>
 
