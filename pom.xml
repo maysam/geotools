@@ -1707,36 +1707,16 @@
   <!--     Maven repository is implicit and doesn't need to be specified. -->
   <!-- ================================================================== -->
   <repositories>
-   
-    
-
-    <repository>
-      <id>geosolutions</id>
-      <name>geosolutions repository</name>
-      <url>http://maven.geo-solutions.it/</url>
-    </repository>
-
-    <repository>
-      <id>osgeo</id>
-      <name>Open Source Geospatial Foundation Repository</name>
-      <url>http://download.osgeo.org/webdav/geotools/</url>
-    </repository>
-
-    <repository>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <id>boundless</id>
-      <name>Boundless Maven Repository</name>
-      <url>http://repo.boundlessgeo.com/main</url>
-    </repository>
-          
-           <repository>
+<repository>
         <id>maven2-repository.dev.java.net</id>
         <name>Java.net repository</name>
         <url>http://download.java.net/maven/2</url>
     </repository>
-  
+    <repository>
+        <id>osgeo</id>
+        <name>Open Source Geospatial Foundation Repository</name>
+        <url>http://download.osgeo.org/webdav/geotools/</url>
+    </repository>
     <repository> <!--Add the snapshot repository here-->
         <snapshots>
             <enabled>true</enabled>
@@ -1745,7 +1725,6 @@
         <name>OpenGeo Maven Repository</name>
         <url>http://repo.opengeo.org</url>
     </repository>
-
   </repositories>
 
   <!-- =========================================================== -->
